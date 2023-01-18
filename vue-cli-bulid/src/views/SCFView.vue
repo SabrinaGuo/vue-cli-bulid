@@ -22,7 +22,8 @@
       </p>
     </li>
   </ul>
-  <h4>此 SFC 檔案中的 h4 是紅色，因為下了 scoped 屬性</h4>
+  <h4>此 SFC 檔案中的 h4 是粉紅色，因為父層有 css 設定</h4>
+  <h5>此 SFC 檔案中的 h5 沒有變成綠色，因為父層下了 scoped 屬性</h5>
   <p>
     Vue.js 透過這三個區塊來表示單一元件，因此這樣的檔案也被稱為單一元件檔
     (Single Component File)
@@ -140,9 +141,7 @@ export default {
 h3 {
   margin: 10px 0;
 }
-h5 {
-  font-size: 16px;
-}
+
 ul {
   list-style-type: disc;
   padding: 0;
@@ -156,10 +155,5 @@ a {
 }
 p {
   line-height: 1.8;
-}
-</style>
-<style scoped>
-h4 {
-  color: red;
 }
 </style>
