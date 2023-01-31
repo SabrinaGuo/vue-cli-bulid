@@ -2,7 +2,8 @@
   <nav>
     <router-link to="/">首頁</router-link> |
     <router-link to="/scfView">SFC 介紹</router-link> |
-    <router-link to="/routerView">Router 介紹</router-link>
+    <router-link to="/routerView">Router 介紹</router-link> |
+    <router-link to="/vuexView">Vuex 介紹</router-link>
   </nav>
   <h4>在 app.vue 中的 css 寫上 h4 是粉紅色，會影響到子層們的 css</h4>
   <h5>若是在 style 標籤中寫上 scoped 則僅影響自身</h5>

@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import scfView from "../views/SCFView.vue";
 import UserView from "../views/UserView.vue";
+import VuexView from "../views/VuexView.vue";
 
 //routes 路由比對、陣列型態的內容
 const routes = [
@@ -28,6 +29,11 @@ const routes = [
     path: "/users/:userId",
     name: "UserView",
     component: UserView,
+  },
+  {
+    path: "/vuexView",
+    name: "vuexView",
+    component: VuexView,
   },
 ];
 
