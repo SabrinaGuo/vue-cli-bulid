@@ -76,8 +76,73 @@
       <p style="color: orange">
         ------------------------------------------------
       </p>
-      <li>actions：</li>
+      <li>
+        actions：作用類似於 mutations，最大的不同在於它不能直接操作 state
+        裡面的資料，也因此它可以執行非同步的任務，再將結果回傳給
+        <strong>mutations</strong> 去更改狀態。我們可以在 Vue 元件的 created 或
+        mounted 階段向 fetch 發送 dispatch，就可以在 Vue
+        元件實體建立的同時，向後端發送 API 請求，並在回傳結果後，透過預先定義的
+        mutations 來存入 store 了。
+        <p>actions 裡面的函式分別接受兩個參數：</p>
+        <ul>
+          <li>
+            context：與 vuex 實體相同的物件，具有相同的方法與屬性，但並不是
+            store 本身，可以透過呼叫這個物件對 store 進行操作，如想在某個
+            actions 去 dispatch 另一個 actions 時，可以透過
+            context.dispatch('...') 來達成。
+          </li>
+          <li>payload：與 mutations 的 payload 一樣，指的是從外面傳入的值。</li>
+        </ul>
+      </li>
     </ul>
+    <p>
+      若 actions 回傳的是 Promise 物件，甚至可以在 this.$store.dispatch(...)
+      加上 .then() 來執行後續的動作。
+    </p>
+    <p style="color: orange">
+      ------------------------------------------------
+    </p>
+    <li>
+      modules：當專案越來越大時， state
+      存放的資料也會越來越多管理不易，在modules裏面，我們可以針對每一個 module
+      分別定義他們的 state、getters、mutations、actions，此時我們可以將 store
+      拆分為 moduleA 與 moduleB 兩個模組，到 Vue 元件時，在computed 透過
+      mapState 搭配函式來取得 state.moduleA 的資料。同理
+      mapGetters、mapMutations、mapActions 也是一樣的做法。
+    </li>
+    <p style="color: orange">
+      ------------------------------------------------
+    </p>
+    <li>
+      rootState：透過 modules 切分模組後，在模組裡存取外層 store
+      的資料，需要透過 rootState 來處理。如 getters
+      須透過第三與第四參數來分別取得 rootState 與 rootGetters，而 mutations
+      則透過 context 來取得 context.rootState。
+    </li>
+    <p style="color: orange">
+      ------------------------------------------------ㄘ
+    </p>
+    <li>
+      namespaced：當不同的模組各自擁有同樣名稱的 mutations 或 actions 時，可以在
+      module 內加上 namespaced:true 來避免命名重複導致的錯誤。
+      <p>
+        在 Module 中需要 dispatch 與 commit ->
+        this.$store.dispatch('moduleA/fetchInfo') 與
+        this.$store.commit('moduleB/fetchInfo')
+      </p>
+      <p>
+        在 mapMutations 與 mapActions -> ...mapMutations('moduleA',[
+        'fetchInfo','...' ]) 與 ...mapActions('moduleB',[ 'fetchInfo','...'
+        ])，將 namespaced 指定到第一個參數，就可以順利指定到對應的模組
+      </p>
+      <p>
+        除了在 Vue 元件派發 dispatch 之外也可能會從模組內發送 dispatch 到 root
+        的情況，此時只需要在 dispatch 或 commit 加上第三個參數，並指定 {
+        root:true } 就可以將 dispatch 或 commit 指定給外層的 root ->
+        dispatch('someOtherAction',null,{root:true}) 或
+        commit('someMutation',null,{root:true})
+      </p>
+    </li>
     <p style="color: orange">
       ------------------------------------------------
     </p>
@@ -96,7 +161,10 @@
         引入且會將隱含此方法的參數自動帶入 payload
         的功能，只需要注意在模板上引用時需加上參數將其傳遞出去
       </li>
-      <li></li>
+      <li>
+        mapActions：可在想使用的元件中在 methods 裡使用
+        ...mapActions(['xxx'])，然後在 created() 生命週期中去呼叫。
+      </li>
     </ul>
     <img
       src="./../assets/vuex.png"
