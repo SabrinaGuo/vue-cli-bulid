@@ -116,8 +116,8 @@
     <li>
       rootState：透過 modules 切分模組後，在模組裡存取外層 store
       的資料，需要透過 rootState 來處理。如 getters
-      須透過第三與第四參數來分別取得 rootState 與 rootGetters，而 mutations
-      則透過 context 來取得 context.rootState。
+      須透過第三與第四參數來分別取得 rootState 與 rootGetters，而 actions 則透過
+      context 來取得 context.rootState。
     </li>
     <p style="color: orange">
       ------------------------------------------------ㄘ

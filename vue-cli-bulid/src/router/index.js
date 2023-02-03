@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import scfView from "../views/SCFView.vue";
 import UserView from "../views/UserView.vue";
 import VuexView from "../views/VuexView.vue";
+import MaskView from "../views/MaskView.vue";
 
 //routes 路由比對、陣列型態的內容
 const routes = [
@@ -34,6 +35,11 @@ const routes = [
     path: "/vuexView",
     name: "vuexView",
     component: VuexView,
+  },
+  {
+    path: "/maskView",
+    name: "vuexmaskViewView",
+    component: MaskView,
   },
 ];
 
