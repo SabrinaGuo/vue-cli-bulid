@@ -1,19 +1,37 @@
 <template>
   <div id="mask">
     <!-- aside-menu 左側欄 -->
-    <asideMenu />
+    <asideMenu ref="menu" @triggerMarkerPopup="openPopup" />
 
     <!-- 地圖區塊 -->
-    <div class="mask-map" id="mask-map"></div>
+    <maskMap ref="map" />
+
+    <lightBox />
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import asideMenu from "@/components/asideMenu.vue";
+import lightBox from "@/components/lightboxView.vue";
+import maskMap from "@/components/maskMap.vue";
 export default {
   name: "MaskView",
   components: {
     asideMenu,
+    lightBox,
+    maskMap,
+  },
+  methods: {
+    ...mapActions(["fetchLocations", "fetchPharmacies"]),
+    openPopup(id) {
+      this.$refs.map.triggerPopup(id);
+    },
+  },
+  mounted() {
+    this.fetchLocations();
+    this.fetchPharmacies();
+    // console.log(this.$store.state.stores);
   },
 };
 </script>

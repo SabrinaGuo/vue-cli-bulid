@@ -14,6 +14,8 @@ export default createStore({
     location: [], // 存放 API 回傳的 縣市/行政區的列表資訊
     stores: [], // 存放 API 回傳的所有藥局資訊
     keywords: "", // 關鍵字搜尋
+    showModal: false, // 燈箱預設關閉
+    infoBoxSid: null, //對應的藥局id
   },
   getters: {
     //售價打八折
@@ -49,6 +51,10 @@ export default createStore({
             (d) => d.county == state.currCity && d.town == state.currDistrict
           );
     },
+    // 目前所選行政區資訊
+    currDistrictInfo(state, getters) {
+      return getters.districtList.find((d) => d.name === state.currDistrict);
+    },
   },
   mutations: {
     setQuantity(state, payload) {
@@ -72,6 +78,12 @@ export default createStore({
     },
     setkeywords(state, payload) {
       state.keywords = payload;
+    },
+    setshowModal(state, payload) {
+      state.showModal = payload;
+    },
+    setinfoBoxSid(state, payload) {
+      state.infoBoxSid = payload;
     },
   },
   actions: {

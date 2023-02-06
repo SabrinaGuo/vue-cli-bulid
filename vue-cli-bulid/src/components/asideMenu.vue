@@ -23,7 +23,12 @@
     </div>
 
     <ul class="store-lists">
-      <li class="store-info wraps" v-for="s in filiteredStores" :key="s.id">
+      <li
+        class="store-info wraps"
+        v-for="s in filiteredStores"
+        :key="s.id"
+        @click="$emit('triggerMarkerPopup', s.id)"
+      >
         <h1 v-html="keywordHightlight(s.name)"></h1>
 
         <div class="mask-info">
@@ -38,7 +43,7 @@
 
         <div class="mask-info">最後更新時間: {{ s.updated }}</div>
 
-        <button class="btn-store-detail">
+        <button class="btn-store-detail" @click="openInfoBox(s.id)">
           <i class="fas fa-info-circle"></i>
           看詳細資訊
         </button>
@@ -47,7 +52,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "asideMenu",
@@ -78,9 +83,26 @@ export default {
     },
     // ...mapState(["stores"]), 已將資料 filter 因此移除此項並新增下方 filiteredStores
     ...mapGetters(["cityList", "districtList", "filiteredStores"]),
+    // 側邊欄也要控制燈箱的開關，所以需要加上對應的屬性 showModal 與相關的 mothods
+    showModal: {
+      get() {
+        return this.$store.state.showModal;
+      },
+      set(value) {
+        return this.$store.commit("setshowModal", value);
+      },
+    },
+    // 從列表取得藥局資訊並置入燈箱：將 id 傳至 store 儲存，然後在 列表以及燈箱頁面分別都加上對應的 computed 屬性
+    infoBoxSid: {
+      get() {
+        return this.$store.state.infoBoxSid;
+      },
+      set(value) {
+        return this.$store.commit("setinfoBoxSid", value);
+      },
+    },
   },
   methods: {
-    ...mapActions(["fetchLocations", "fetchPharmacies"]),
     keywordHightlight(val) {
       //str.replace(regexp|substr, newSubstr|function)
       return val.replace(
@@ -88,11 +110,12 @@ export default {
         `<span class="highlight">${this.keywords}</span>`
       );
     },
-  },
-  mounted() {
-    this.fetchLocations();
-    this.fetchPharmacies();
-    // console.log(this.$store.state.stores);
+    // 側邊欄也要控制燈箱的開關，所以需要加上對應的屬性 showModal 與相關的 mothods
+    openInfoBox(sid) {
+      //   console.log(sid);
+      this.showModal = true;
+      this.infoBoxSid = sid;
+    },
   },
   // 若想更新縣市時自動切換到第一個選項時，可使用 watch
   watch: {
