@@ -4,6 +4,7 @@ import scfView from "../views/SCFView.vue";
 import UserView from "../views/UserView.vue";
 import VuexView from "../views/VuexView.vue";
 import MaskView from "../views/MaskView.vue";
+import MaskViewComposition from "../views/MaskViewComposition.vue";
 import CompositionView from "../views/CompositionView.vue";
 
 //routes 路由比對、陣列型態的內容
@@ -46,6 +47,11 @@ const routes = [
     path: "/compositionView",
     name: "CompositionView",
     component: CompositionView,
+  },
+  {
+    path: "/maskViewComposition",
+    name: "MaskViewComposition",
+    component: MaskViewComposition,
   },
 ];
 

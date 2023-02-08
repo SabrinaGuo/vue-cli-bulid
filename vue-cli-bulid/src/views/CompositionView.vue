@@ -107,6 +107,14 @@
     </li>
     <li>inject()：在取用的元件中透過 inject() inject(store.product)</li>
   </ul>
+  <p>
+    注意：provide 與 inject
+    都只能在現存元件中使用，一但元件銷毀彼此的連結就會失效。
+  </p>
+  <p>
+    生命週期 hooks：原則上與 Optional API 一致，只是需改寫為函式寫法，且只能寫在
+    setup() 內且無需 return。
+  </p>
 </template>
 <script>
 export default {
